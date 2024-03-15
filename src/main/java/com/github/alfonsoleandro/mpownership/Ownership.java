@@ -34,13 +34,18 @@ public final class Ownership extends ReloaderPlugin {
         this.messageSender = new MessageSender<>(this, Message.values(), this.messagesYaml, "prefix");
         registerEvents();
         registerCommands();
-        //TODO: enable messages
+        this.messageSender.send("&aEnabled&f. Version: &e" + this.version);
+        this.messageSender.send("&fThank you for using my plugin! &c" + this.pdfFile.getName() + "&f By " + this.pdfFile.getAuthors().get(0));
+        this.messageSender.send("&fJoin my discord server at &chttps://bit.ly/MPDiscordSv");
+        this.messageSender.send("Please consider subscribing to my yt channel: &c" + this.pdfFile.getWebsite());
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
-        //TODO: disable messages
+        this.messageSender.send("&cDisabled&f. Version: &e" + this.version);
+        this.messageSender.send("&fThank you for using my plugin! &c" + this.pdfFile.getName() + "&f By " + this.pdfFile.getAuthors().get(0));
+        this.messageSender.send("&fJoin my discord server at &chttps://bit.ly/MPDiscordSv");
+        this.messageSender.send("Please consider subscribing to my yt channel: &c" + this.pdfFile.getWebsite());
     }
 
     private void registerEvents() {
