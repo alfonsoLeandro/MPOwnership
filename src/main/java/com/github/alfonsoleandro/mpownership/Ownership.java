@@ -6,6 +6,7 @@ import com.github.alfonsoleandro.mpownership.command.MainCommand;
 import com.github.alfonsoleandro.mpownership.listener.BlockBreakListener;
 import com.github.alfonsoleandro.mpownership.listener.PlayerHitListener;
 import com.github.alfonsoleandro.mpownership.listener.BowShootListener;
+import com.github.alfonsoleandro.mpownership.listener.ShopKeeperTradeListener;
 import com.github.alfonsoleandro.mpownership.manager.OwnershipManager;
 import com.github.alfonsoleandro.mpownership.utils.Message;
 import com.github.alfonsoleandro.mputils.commands.MPTabCompleter;
@@ -16,16 +17,13 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 
-import java.util.Arrays;
-
-//TODO: shopkeepers integration
 public final class Ownership extends ReloaderPlugin {
 
     private final PluginDescriptionFile pdfFile = getDescription();
     private final String version = this.pdfFile.getVersion();
-    private OwnershipManager ownershipManager;
     private MessageSender<Message> messageSender;
     private YamlFile messagesYaml;
+    private OwnershipManager ownershipManager;
 
     @Override
     public void onEnable() {
@@ -53,9 +51,16 @@ public final class Ownership extends ReloaderPlugin {
         pm.registerEvents(new BlockBreakListener(this), this);
         pm.registerEvents(new PlayerHitListener(this), this);
         pm.registerEvents(new BowShootListener(this), this);
-        //ArmorEquipEvent events
+        // ArmorEquipEvent events
         pm.registerEvents(new ArmorListener(), this);
         pm.registerEvents(new DispenserArmorListener(), this);
+        // Shopkeepers integration
+        if (pm.isPluginEnabled("Shopkeepers")) {
+            this.messageSender.send("&aShopkeepers integration enabled!");
+            pm.registerEvents(new ShopKeeperTradeListener(this), this);
+        } else {
+            this.messageSender.send("&cShopkeepers integration disabled. Shopkeepers plugin not found.");
+        }
     }
 
     private void registerCommands() {
@@ -82,7 +87,6 @@ public final class Ownership extends ReloaderPlugin {
     public MessageSender<Message> getMessageSender() {
         return this.messageSender;
     }
-
 
 
     /**
