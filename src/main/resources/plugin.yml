@@ -1,0 +1,40 @@
+name: MPOwnership
+version: '${project.version}'
+main: com.github.alfonsoleandro.mpownership.Ownership
+api-version: '1.20'
+depend: [ MPUtils ]
+authors: [ lelesape ]
+description: Set owners to different items, in order to prevent players from using special items.
+website: 'http://bit.ly/2mwvHWN'
+
+commands:
+  ownership:
+    description: Main command
+    usage: /ownership
+    aliases: [ MPOwnership, osp ]
+
+permissions:
+  ownership.version:
+    description: Allows you to check the plugin's version
+    default: op
+  ownership.reload:
+    description: Allows you to reload the plugin
+    default: op
+  ownership.set:
+    description: Allows you to set an item's owner
+    default: op
+  ownership.check:
+    description: Allows you to check an item's owner
+    default: op
+  ownership.remove:
+    description: Allows you to remove an item's owner
+    default: op
+  ownership.*:
+    description: Gives access to every permission available
+    default: op
+    children:
+      ownership.version: true
+      ownership.reload: true
+      ownership.set: true
+      ownership.check: true
+      ownership.remove: true
