@@ -12,4 +12,5 @@ messages:
   cannot break with item: '&cYou cannot break with this item, it belongs to &f%owner%'
   cannot hit with item: '&cYou cannot hit with this item, it belongs to &f%owner%'
   cannot shoot with bow: '&cYou cannot shoot with this bow, it belongs to &f%owner%'
+  cannot trade: '&cYou cannot trade this item, it belongs to &f%owner%'
   no owner: '&cThis item has no owner'
