@@ -2,6 +2,7 @@ name: MPOwnership
 version: '${project.version}'
 main: com.github.alfonsoleandro.mpownership.Ownership
 api-version: '1.20'
+softdepend: [ Shopkeepers ]
 depend: [ MPUtils ]
 authors: [ lelesape ]
 description: Set owners to different items, in order to prevent players from using special items.

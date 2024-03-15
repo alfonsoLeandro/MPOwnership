@@ -58,6 +58,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>shopkeepers-repo</id>
+            <url>https://nexus.lichtspiele.org/repository/releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -71,6 +75,12 @@
             <groupId>com.github.alfonsoLeandro</groupId>
             <artifactId>MPUtils</artifactId>
             <version>1.10.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.nisovin.shopkeepers</groupId>
+            <artifactId>ShopkeepersAPI</artifactId>
+            <version>2.19.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
