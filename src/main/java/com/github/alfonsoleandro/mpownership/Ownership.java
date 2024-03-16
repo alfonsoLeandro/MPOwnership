@@ -3,10 +3,7 @@ package com.github.alfonsoleandro.mpownership;
 import armorequip.ArmorListener;
 import armorequip.DispenserArmorListener;
 import com.github.alfonsoleandro.mpownership.command.MainCommand;
-import com.github.alfonsoleandro.mpownership.listener.BlockBreakListener;
-import com.github.alfonsoleandro.mpownership.listener.PlayerHitListener;
-import com.github.alfonsoleandro.mpownership.listener.BowShootListener;
-import com.github.alfonsoleandro.mpownership.listener.ShopKeeperTradeListener;
+import com.github.alfonsoleandro.mpownership.listener.*;
 import com.github.alfonsoleandro.mpownership.manager.OwnershipManager;
 import com.github.alfonsoleandro.mpownership.utils.Message;
 import com.github.alfonsoleandro.mputils.commands.MPTabCompleter;
@@ -53,6 +50,7 @@ public final class Ownership extends ReloaderPlugin {
         pm.registerEvents(new BlockBreakListener(this), this);
         pm.registerEvents(new PlayerHitListener(this), this);
         pm.registerEvents(new BowShootListener(this), this);
+        pm.registerEvents(new ArmorEquipListener(this), this);
         // ArmorEquipEvent events
         pm.registerEvents(new ArmorListener(), this);
         pm.registerEvents(new DispenserArmorListener(), this);

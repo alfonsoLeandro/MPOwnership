@@ -25,7 +25,7 @@ public class ArmorEquipListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onBreak(ArmorEquipEvent event) {
+    public void onArmorEquip(ArmorEquipEvent event) {
         Player player = event.getPlayer();
         if (player.hasPermission("ownership.bypass")) {
             return;
