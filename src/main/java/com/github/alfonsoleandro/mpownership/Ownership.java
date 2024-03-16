@@ -32,12 +32,12 @@ public final class Ownership extends ReloaderPlugin {
         registerFiles();
         this.ownershipManager = new OwnershipManager(this);
         this.messageSender = new MessageSender<>(this, Message.values(), this.messagesYaml, "prefix");
-        registerEvents();
-        registerCommands();
         this.messageSender.send("&aEnabled&f. Version: &e" + this.version);
         this.messageSender.send("&fThank you for using my plugin! &c" + this.pdfFile.getName() + "&f By " + this.pdfFile.getAuthors().get(0));
         this.messageSender.send("&fJoin my discord server at &chttps://bit.ly/MPDiscordSv");
         this.messageSender.send("Please consider subscribing to my yt channel: &c" + this.pdfFile.getWebsite());
+        registerEvents();
+        registerCommands();
     }
 
     @Override
