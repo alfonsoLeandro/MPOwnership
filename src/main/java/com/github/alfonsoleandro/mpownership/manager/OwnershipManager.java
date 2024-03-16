@@ -23,11 +23,10 @@ public class OwnershipManager {
     }
 
     public void setOwner(ItemStack item, String playerName) {
-        if (!item.hasItemMeta()) {
+        ItemMeta itemMeta = item.getItemMeta();
+        if (itemMeta == null) {
             return;
         }
-        ItemMeta itemMeta = item.getItemMeta();
-        assert itemMeta != null;
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         persistentDataContainer.set(new NamespacedKey(this.plugin, "owner"), PersistentDataType.STRING, playerName);
         persistentDataContainer.set(new NamespacedKey(this.plugin, "id"), PersistentDataType.STRING, UUID.randomUUID().toString());
@@ -39,11 +38,10 @@ public class OwnershipManager {
     }
 
     public void removeOwner(ItemStack item) {
-        if (!item.hasItemMeta()) {
+        ItemMeta itemMeta = item.getItemMeta();
+        if (itemMeta == null) {
             return;
         }
-        ItemMeta itemMeta = item.getItemMeta();
-        assert itemMeta != null;
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         persistentDataContainer.remove(new NamespacedKey(this.plugin, "owner"));
         persistentDataContainer.remove(new NamespacedKey(this.plugin, "id"));
@@ -51,11 +49,10 @@ public class OwnershipManager {
     }
 
     public String checkOwner(ItemStack item) {
-        if (!item.hasItemMeta()) {
+        ItemMeta itemMeta = item.getItemMeta();
+        if (itemMeta == null) {
             return null;
         }
-        ItemMeta itemMeta = item.getItemMeta();
-        assert itemMeta != null;
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         if (persistentDataContainer.has(new NamespacedKey(this.plugin, "owner"), PersistentDataType.STRING)) {
             return persistentDataContainer.get(new NamespacedKey(this.plugin, "owner"), PersistentDataType.STRING);
