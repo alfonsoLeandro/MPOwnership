@@ -17,6 +17,8 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 
+import java.util.Arrays;
+
 public final class Ownership extends ReloaderPlugin {
 
     private final PluginDescriptionFile pdfFile = getDescription();
