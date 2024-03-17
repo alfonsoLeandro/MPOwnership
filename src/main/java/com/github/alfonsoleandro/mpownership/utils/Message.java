@@ -23,7 +23,8 @@ public enum Message implements MessageEnum {
     CANNOT_HIT_WITH_ITEM("&cYou cannot hit with this item, it belongs to &f%owner%"),
     CANNOT_SHOOT_WITH_BOW("&cYou cannot shoot with this bow, it belongs to &f%owner%"),
     CANNOT_TRADE("&cYou cannot trade this item, it belongs to &f%owner%"),
-    NO_OWNER("&cThis item has no owner");
+    NO_OWNER("&cThis item has no owner"),
+    INVALID_SOUND("&cInvalid sound configuration for %sound%, please check your config file is valid."),;
 
     private final String path;
     private final String defaultMessage;
