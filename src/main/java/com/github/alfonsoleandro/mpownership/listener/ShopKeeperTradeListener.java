@@ -2,8 +2,10 @@ package com.github.alfonsoleandro.mpownership.listener;
 
 import com.github.alfonsoleandro.mpownership.Ownership;
 import com.github.alfonsoleandro.mpownership.manager.OwnershipManager;
+import com.github.alfonsoleandro.mpownership.manager.Settings;
 import com.github.alfonsoleandro.mpownership.utils.Message;
 import com.github.alfonsoleandro.mputils.message.MessageSender;
+import com.github.alfonsoleandro.mputils.sound.SoundUtils;
 import com.nisovin.shopkeepers.api.events.ShopkeeperTradeEvent;
 import com.nisovin.shopkeepers.api.util.UnmodifiableItemStack;
 import org.bukkit.entity.Player;
@@ -18,10 +20,12 @@ public class ShopKeeperTradeListener implements Listener {
 
     private final OwnershipManager ownershipManager;
     private final MessageSender<Message> messageSender;
+    private final Settings settings;
 
     public ShopKeeperTradeListener(Ownership plugin) {
         this.ownershipManager = plugin.getOwnershipManager();
         this.messageSender = plugin.getMessageSender();
+        this.settings = plugin.getSettings();
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -40,6 +44,7 @@ public class ShopKeeperTradeListener implements Listener {
             if (owner2 != null && !owner2.equals(player.getName())) {
                 event.setCancelled(true);
                 this.messageSender.send(player, Message.CANNOT_TRADE, "%owner%", owner2);
+                playSound(player);
                 return;
             }
         }
@@ -47,6 +52,13 @@ public class ShopKeeperTradeListener implements Listener {
         if (owner1 != null && !owner1.equals(player.getName())) {
             event.setCancelled(true);
             this.messageSender.send(player, Message.CANNOT_TRADE, "%owner%", owner1);
+            playSound(player);
+        }
+    }
+
+    private void playSound(Player player) {
+        if (this.settings.isForbiddenTradeSoundEnabled()) {
+             SoundUtils.playSound(player, this.settings.getForbiddenTradeSound());
         }
     }
 }

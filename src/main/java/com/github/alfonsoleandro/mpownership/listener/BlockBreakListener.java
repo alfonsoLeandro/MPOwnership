@@ -2,8 +2,10 @@ package com.github.alfonsoleandro.mpownership.listener;
 
 import com.github.alfonsoleandro.mpownership.Ownership;
 import com.github.alfonsoleandro.mpownership.manager.OwnershipManager;
+import com.github.alfonsoleandro.mpownership.manager.Settings;
 import com.github.alfonsoleandro.mpownership.utils.Message;
 import com.github.alfonsoleandro.mputils.message.MessageSender;
+import com.github.alfonsoleandro.mputils.sound.SoundUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,10 +20,12 @@ public class BlockBreakListener implements Listener {
 
     private final OwnershipManager ownershipManager;
     private final MessageSender<Message> messageSender;
+    private final Settings settings;
 
     public BlockBreakListener(Ownership plugin) {
         this.ownershipManager = plugin.getOwnershipManager();
         this.messageSender = plugin.getMessageSender();
+        this.settings = plugin.getSettings();
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -36,6 +40,9 @@ public class BlockBreakListener implements Listener {
         if (owner != null && !owner.equals(player.getName())) {
             event.setCancelled(true);
             this.messageSender.send(player, Message.CANNOT_BREAK_WITH_ITEM, "%owner%", owner);
+            if (this.settings.isForbiddenToolSoundEnabled()) {
+                SoundUtils.playSound(player, this.settings.getForbiddenToolSound());
+            }
         }
     }
 }
