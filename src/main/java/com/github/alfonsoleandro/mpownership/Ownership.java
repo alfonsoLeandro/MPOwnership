@@ -5,6 +5,7 @@ import armorequip.DispenserArmorListener;
 import com.github.alfonsoleandro.mpownership.command.MainCommand;
 import com.github.alfonsoleandro.mpownership.listener.*;
 import com.github.alfonsoleandro.mpownership.manager.OwnershipManager;
+import com.github.alfonsoleandro.mpownership.manager.Settings;
 import com.github.alfonsoleandro.mpownership.utils.Message;
 import com.github.alfonsoleandro.mputils.commands.MPTabCompleter;
 import com.github.alfonsoleandro.mputils.files.YamlFile;
@@ -21,6 +22,7 @@ public final class Ownership extends ReloaderPlugin {
     private final PluginDescriptionFile pdfFile = getDescription();
     private final String version = this.pdfFile.getVersion();
     private MessageSender<Message> messageSender;
+    private Settings settings;
     private YamlFile configYaml;
     private YamlFile messagesYaml;
     private OwnershipManager ownershipManager;
@@ -34,6 +36,7 @@ public final class Ownership extends ReloaderPlugin {
         this.messageSender.send("&fThank you for using my plugin! &c" + this.pdfFile.getName() + "&f By " + this.pdfFile.getAuthors().get(0));
         this.messageSender.send("&fJoin my discord server at &chttps://bit.ly/MPDiscordSv");
         this.messageSender.send("Please consider subscribing to my yt channel: &c" + this.pdfFile.getWebsite());
+        this.settings = new Settings(this);
         registerEvents();
         registerCommands();
     }
@@ -88,6 +91,10 @@ public final class Ownership extends ReloaderPlugin {
 
     public MessageSender<Message> getMessageSender() {
         return this.messageSender;
+    }
+
+    public Settings getSettings() {
+        return this.settings;
     }
 
     public YamlFile getConfigYaml() {
