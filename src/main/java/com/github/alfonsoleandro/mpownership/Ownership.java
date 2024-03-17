@@ -21,6 +21,7 @@ public final class Ownership extends ReloaderPlugin {
     private final PluginDescriptionFile pdfFile = getDescription();
     private final String version = this.pdfFile.getVersion();
     private MessageSender<Message> messageSender;
+    private YamlFile configYaml;
     private YamlFile messagesYaml;
     private OwnershipManager ownershipManager;
 
@@ -76,6 +77,7 @@ public final class Ownership extends ReloaderPlugin {
     }
 
     private void registerFiles() {
+        this.configYaml = new YamlFile(this, "config.yml");
         this.messagesYaml = new YamlFile(this, "messages.yml");
     }
 
@@ -86,6 +88,10 @@ public final class Ownership extends ReloaderPlugin {
 
     public MessageSender<Message> getMessageSender() {
         return this.messageSender;
+    }
+
+    public YamlFile getConfigYaml() {
+        return this.configYaml;
     }
 
 

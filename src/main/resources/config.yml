@@ -1,0 +1,27 @@
+config:
+  sounds:
+    forbiddenArmor:
+      enabled: true
+      sound: ENTITY_ITEM_BREAK
+      volume: 0.8
+      pitch: 1.0
+    forbiddenTool:
+      enabled: true
+      sound: BLOCK_ANVIL_LAND
+      volume: 0.8
+      pitch: 1.0
+    forbiddenBow:
+      enabled: true
+      sound: ITEM_FIRECHARGE_USE
+      volume: 0.8
+      pitch: 1.0
+    forbiddenWeapon:
+      enabled: true
+      sound: ITEM_FIRECHARGE_USE
+      volume: 0.8
+      pitch: 1.0
+    forbiddenTrade:
+      enabled: true
+      sound: ENTITY_VILLAGER_NO
+      volume: 0.8
+      pitch: 1.0
