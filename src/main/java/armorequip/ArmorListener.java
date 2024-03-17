@@ -114,9 +114,8 @@ public class ArmorListener implements Listener{
 	}};
 
 	//Event Priority is highest because other plugins might cancel the events before we check.
-	@EventHandler(priority =  EventPriority.HIGHEST)
+	@EventHandler(priority =  EventPriority.HIGHEST, ignoreCancelled = true)
 	public void inventoryClick(InventoryClickEvent e){
-		if(e.isCancelled()) return;
 		if(e.getAction() == InventoryAction.NOTHING) return;// Why does this get called if nothing happens??
 		if(e.getSlotType() != SlotType.ARMOR && e.getSlotType() != SlotType.QUICKBAR && e.getSlotType() != SlotType.CONTAINER) return;
 		if(e.getClickedInventory() != null && !e.getClickedInventory().getType().equals(InventoryType.PLAYER)) return;
@@ -127,7 +126,7 @@ public class ArmorListener implements Listener{
 		boolean numberKey = e.getClick().equals(ClickType.NUMBER_KEY);
 
 		ArmorType newArmorType = ArmorType.matchType(shift ? e.getCurrentItem() : e.getCursor());
-		if(!shift && newArmorType != null && e.getRawSlot() != newArmorType.getSlot()){
+		if(!shift && newArmorType != null && e.getRawSlot() != newArmorType.getRawSlot()){
 			// Used for drag and drop checking to make sure you aren't trying to place a helmet in the boots slot.
 			return;
 		}
@@ -135,7 +134,7 @@ public class ArmorListener implements Listener{
 			newArmorType = ArmorType.matchType(e.getCurrentItem());
 			if(newArmorType != null){
 				boolean equipping = true;
-				if(e.getRawSlot() == newArmorType.getSlot()){
+				if(e.getRawSlot() == newArmorType.getRawSlot()){
 					equipping = false;
 				}
 				if(newArmorType.equals(ArmorType.HELMET) && (equipping == isAirOrNull(e.getWhoClicked().getInventory().getHelmet())) || newArmorType.equals(ArmorType.CHESTPLATE) && (equipping == isAirOrNull(e.getWhoClicked().getInventory().getChestplate())) || newArmorType.equals(ArmorType.LEGGINGS) && (equipping ? isAirOrNull(e.getWhoClicked().getInventory().getLeggings()) : !isAirOrNull(e.getWhoClicked().getInventory().getLeggings())) || newArmorType.equals(ArmorType.BOOTS) && (equipping ? isAirOrNull(e.getWhoClicked().getInventory().getBoots()) : !isAirOrNull(e.getWhoClicked().getInventory().getBoots()))){
@@ -172,7 +171,7 @@ public class ArmorListener implements Listener{
 				// e.getCursor() == Equip
 				// newArmorType = ArmorType.matchType(!isAirOrNull(e.getCurrentItem()) ? e.getCurrentItem() : e.getCursor());
 			}
-			if(newArmorType != null && e.getRawSlot() == newArmorType.getSlot()){
+			if(newArmorType != null && e.getRawSlot() == newArmorType.getRawSlot()){
 				ArmorEquipEvent.EquipMethod method = ArmorEquipEvent.EquipMethod.PICK_DROP;
 				if(e.getAction().equals(InventoryAction.HOTBAR_SWAP) || numberKey) method = ArmorEquipEvent.EquipMethod.HOTBAR_SWAP;
 				ArmorEquipEvent armorEquipEvent = new ArmorEquipEvent((Player) e.getWhoClicked(), method, newArmorType, oldArmorPiece, newArmorPiece);
@@ -225,7 +224,7 @@ public class ArmorListener implements Listener{
 		// Can't replace armor using this method making getCursor() useless.
 		ArmorType type = ArmorType.matchType(event.getOldCursor());
 		if(event.getRawSlots().isEmpty()) return;// Idk if this will ever happen
-		if(type != null && type.getSlot() == event.getRawSlots().stream().findFirst().orElse(0)){
+		if(type != null && type.getRawSlot() == event.getRawSlots().stream().findFirst().orElse(0)){
 			ArmorEquipEvent armorEquipEvent = new ArmorEquipEvent((Player) event.getWhoClicked(), ArmorEquipEvent.EquipMethod.DRAG, type, null, event.getOldCursor());
 			Bukkit.getServer().getPluginManager().callEvent(armorEquipEvent);
 			if(armorEquipEvent.isCancelled()){

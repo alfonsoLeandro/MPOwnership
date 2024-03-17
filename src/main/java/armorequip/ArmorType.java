@@ -7,12 +7,14 @@ import org.bukkit.inventory.ItemStack;
  * @since Jul 30, 2015
  */
 public enum ArmorType{
-	HELMET(39), CHESTPLATE(38), LEGGINGS(37), BOOTS(36);
+	HELMET(5, 39), CHESTPLATE(6, 38), LEGGINGS(7, 37), BOOTS(8, 36);
 
-	private final int slot;
+	private final int rawSlot;
+	private final int playerInventorySlot;
 
-	ArmorType(int slot){
-		this.slot = slot;
+	ArmorType(int rawSlot, int playerInventorySlot){
+		this.rawSlot = rawSlot;
+		this.playerInventorySlot = playerInventorySlot;
 	}
 
 	/**
@@ -31,7 +33,11 @@ public enum ArmorType{
 		else return null;
 	}
 
-	public int getSlot(){
-		return slot;
+	public int getRawSlot(){
+		return rawSlot;
+	}
+
+	public int getPlayerInventorySlot(){
+		return playerInventorySlot;
 	}
 }
