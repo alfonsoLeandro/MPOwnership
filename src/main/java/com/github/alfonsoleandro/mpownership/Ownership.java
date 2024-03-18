@@ -17,6 +17,10 @@ import org.bukkit.plugin.PluginManager;
 
 import java.util.Arrays;
 
+// TODO: prevenir crafteos de items con dueño
+// TODO: prevenir que se pueda poner un item con dueño en un horno
+// TODO: prevenir tridentes
+// TODO: hacer que tradeos setee owner
 public final class Ownership extends ReloaderPlugin {
 
     private final PluginDescriptionFile pdfFile = getDescription();

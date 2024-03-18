@@ -37,6 +37,16 @@ public class OwnershipManager {
         MPItemStacks.replacePlaceholders(item, placeholders);
     }
 
+    public void setReadyToOwn(ItemStack item) {
+        ItemMeta itemMeta = item.getItemMeta();
+        if (itemMeta == null) {
+            return;
+        }
+        PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
+        persistentDataContainer.set(new NamespacedKey(this.plugin, "readyToOwn"), PersistentDataType.BYTE, (byte) 1);
+        item.setItemMeta(itemMeta);
+    }
+
     public void removeOwner(ItemStack item) {
         ItemMeta itemMeta = item.getItemMeta();
         if (itemMeta == null) {

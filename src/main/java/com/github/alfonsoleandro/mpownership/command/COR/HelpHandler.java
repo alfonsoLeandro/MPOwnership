@@ -22,6 +22,7 @@ public class HelpHandler extends AbstractHandler{
         this.messageSender.send(sender, "&f/"+label+" reload");
         this.messageSender.send(sender, "&f/"+label+" check");
         this.messageSender.send(sender, "&f/"+label+" set");
+        this.messageSender.send(sender, "&f/"+label+" setReadyToOwn");
         this.messageSender.send(sender, "&f/"+label+" remove");
 
     }
