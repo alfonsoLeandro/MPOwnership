@@ -27,6 +27,9 @@ permissions:
   ownership.setReadyToOwn:
     description: Allows you to set an item to be ready to own
     default: op
+  ownership.autoOwn:
+    description: Allows you to own an item that is ready to own
+    default: true
   ownership.check:
     description: Allows you to check an item's owner
     default: op
@@ -41,5 +44,6 @@ permissions:
       ownership.reload: true
       ownership.set: true
       ownership.setReadyToOwn: true
+      ownership.autoOwn: true
       ownership.check: true
       ownership.remove: true
