@@ -16,6 +16,9 @@ import java.util.UUID;
  */
 public class OwnershipManager {
 
+    private static final String OWNER_KEY = "owner";
+    private static final String ID_KEY = "id";
+    private static final String READY_TO_OWN_KEY = "readyToOwn";
     private final Ownership plugin;
 
     public OwnershipManager(Ownership plugin) {
@@ -30,6 +33,8 @@ public class OwnershipManager {
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         persistentDataContainer.set(new NamespacedKey(this.plugin, "owner"), PersistentDataType.STRING, playerName);
         persistentDataContainer.set(new NamespacedKey(this.plugin, "id"), PersistentDataType.STRING, UUID.randomUUID().toString());
+        persistentDataContainer.set(new NamespacedKey(this.plugin, OWNER_KEY), PersistentDataType.STRING, playerName);
+        persistentDataContainer.set(new NamespacedKey(this.plugin, ID_KEY), PersistentDataType.STRING, UUID.randomUUID().toString());
         item.setItemMeta(itemMeta);
 
         HashMap<String, String> placeholders = new HashMap<>();
@@ -43,7 +48,7 @@ public class OwnershipManager {
             return;
         }
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
-        persistentDataContainer.set(new NamespacedKey(this.plugin, "readyToOwn"), PersistentDataType.BYTE, (byte) 1);
+        persistentDataContainer.set(new NamespacedKey(this.plugin, READY_TO_OWN_KEY), PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(itemMeta);
     }
 
@@ -53,8 +58,8 @@ public class OwnershipManager {
             return;
         }
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
-        persistentDataContainer.remove(new NamespacedKey(this.plugin, "owner"));
-        persistentDataContainer.remove(new NamespacedKey(this.plugin, "id"));
+        persistentDataContainer.remove(new NamespacedKey(this.plugin, OWNER_KEY));
+        persistentDataContainer.remove(new NamespacedKey(this.plugin, ID_KEY));
         item.setItemMeta(itemMeta);
     }
 
@@ -64,8 +69,8 @@ public class OwnershipManager {
             return null;
         }
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
-        if (persistentDataContainer.has(new NamespacedKey(this.plugin, "owner"), PersistentDataType.STRING)) {
-            return persistentDataContainer.get(new NamespacedKey(this.plugin, "owner"), PersistentDataType.STRING);
+        if (persistentDataContainer.has(new NamespacedKey(this.plugin, OWNER_KEY), PersistentDataType.STRING)) {
+            return persistentDataContainer.get(new NamespacedKey(this.plugin, OWNER_KEY), PersistentDataType.STRING);
         }
         return null;
     }
