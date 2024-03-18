@@ -15,3 +15,4 @@ messages:
   cannot trade: '&cYou cannot trade this item, it belongs to &f%owner%'
   no owner: '&cThis item has no owner'
   invalid sound: '&cInvalid sound configuration for %sound%, please check your config file is valid.'
+  ready to own: '&aItem is now ready to be owned when crafted or traded for!'
