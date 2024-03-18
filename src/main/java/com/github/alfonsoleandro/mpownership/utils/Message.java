@@ -26,6 +26,7 @@ public enum Message implements MessageEnum {
     NO_OWNER("&cThis item has no owner"),
     INVALID_SOUND("&cInvalid sound configuration for %sound%, please check your config file is valid."),
     READY_TO_OWN("&aItem is now ready to be owned when crafted or traded for!"),
+    CANNOT_AUTO_OWN("&cThe item you were about to get is a personal item, you are not allowed to own items."),
     ;
 
     private final String path;
