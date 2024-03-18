@@ -18,9 +18,11 @@ public class MainCommand implements CommandExecutor {
         this.COR = new HelpHandler(plugin,
                 new VersionHandler(plugin,
                         new ReloadHandler(plugin,
-                                new SetOwnerHandler(plugin,
-                                        new RemoveOwnerHandler(plugin,
-                                                new CheckOwnerHandler(plugin, null)
+                                new SetReadyToOwnHandler(plugin,
+                                        new SetOwnerHandler(plugin,
+                                                new RemoveOwnerHandler(plugin,
+                                                        new CheckOwnerHandler(plugin, null)
+                                                )
                                         )
                                 )
                         )
