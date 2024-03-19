@@ -22,11 +22,13 @@ public class Settings extends Reloadable {
     private boolean forbiddenBowSoundEnabled;
     private boolean forbiddenWeaponSoundEnabled;
     private boolean forbiddenTradeSoundEnabled;
+    private boolean newlyOwnedSoundEnabled;
     private SoundSettings forbiddenArmorSound;
     private SoundSettings forbiddenToolSound;
     private SoundSettings forbiddenBowSound;
     private SoundSettings forbiddenWeaponSound;
     private SoundSettings forbiddenTradeSound;
+    private SoundSettings newlyOwnedSound;
     //</editor-fold>
 
     public Settings(Ownership plugin) {
@@ -103,6 +105,19 @@ public class Settings extends Reloadable {
             this.messageSender.send(Bukkit.getConsoleSender(), Message.INVALID_SOUND,
                     "%sound%", "forbiddenTrade");
         }
+
+        try {
+            this.newlyOwnedSound = new SoundSettings(
+                    config.getString("config.sounds.newlyOwned.sound"),
+                    config.getDouble("config.sounds.newlyOwned.volume"),
+                    config.getDouble("config.sounds.newlyOwned.pitch")
+            );
+            this.newlyOwnedSoundEnabled = config.getBoolean("config.sounds.newlyOwned.enabled");
+        } catch (IllegalArgumentException e) {
+            this.newlyOwnedSoundEnabled = false;
+            this.messageSender.send(Bukkit.getConsoleSender(), Message.INVALID_SOUND,
+                    "%sound%", "newlyOwned");
+        }
     }
 
     @Override
@@ -130,6 +145,10 @@ public class Settings extends Reloadable {
         return this.forbiddenTradeSoundEnabled;
     }
 
+    public boolean isNewlyOwnedSoundEnabled() {
+        return this.newlyOwnedSoundEnabled;
+    }
+
     public SoundSettings getForbiddenArmorSound() {
         return this.forbiddenArmorSound;
     }
@@ -148,5 +167,9 @@ public class Settings extends Reloadable {
 
     public SoundSettings getForbiddenTradeSound() {
         return this.forbiddenTradeSound;
+    }
+
+    public SoundSettings getNewlyOwnedSound() {
+        return this.newlyOwnedSound;
     }
 }

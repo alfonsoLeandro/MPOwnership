@@ -25,3 +25,8 @@ config:
       sound: ENTITY_VILLAGER_NO
       volume: 0.8
       pitch: 1.0
+    newlyOwned:
+      enabled: true
+      sound: ENTITY_PLAYER_LEVELUP
+      volume: 0.8
+      pitch: 1.0
