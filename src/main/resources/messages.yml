@@ -17,3 +17,4 @@ messages:
   invalid sound: '&cInvalid sound configuration for %sound%, please check your config file is valid.'
   ready to own: '&aItem is now ready to be owned when crafted or traded for!'
   cannot auto own: '&cThe item you were about to get is a personal item, you are not allowed to own items.'
+  you now own: '&aYou now own this item!'
