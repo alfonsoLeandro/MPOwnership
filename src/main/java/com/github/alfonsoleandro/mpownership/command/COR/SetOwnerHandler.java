@@ -37,13 +37,15 @@ public class SetOwnerHandler extends AbstractHandler {
         }
         Player player = (Player) sender;
 
-        this.ownershipManager.setOwner(player.getInventory().getItemInMainHand(), args[1]);
-
-        this.messageSender.send(sender, Message.OWNER_SET, "%owner%", args[1]);
-
         Player newOwner = Bukkit.getPlayerExact(args[1]);
+
+        String ownerName = newOwner != null ? newOwner.getName() : args[1];
+        this.ownershipManager.setOwner(player.getInventory().getItemInMainHand(), ownerName);
+
+        this.messageSender.send(sender, Message.OWNER_SET, "%owner%", ownerName);
+
         if (newOwner == null || !newOwner.isOnline()) {
-            this.messageSender.send(sender, Message.NEW_OWNER_OFFLINE, "%owner%", args[1]);
+            this.messageSender.send(sender, Message.NEW_OWNER_OFFLINE, "%owner%", ownerName);
         }
     }
 
