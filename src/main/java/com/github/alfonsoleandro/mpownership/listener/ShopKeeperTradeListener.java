@@ -12,14 +12,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * @author alfonsoLeandro
  */
 public class ShopKeeperTradeListener implements Listener {
 
-    private final OwnershipManager ownershipManager;
     private final MessageSender<Message> messageSender;
+    private final OwnershipManager ownershipManager;
     private final Settings settings;
 
     public ShopKeeperTradeListener(Ownership plugin) {
@@ -28,7 +29,7 @@ public class ShopKeeperTradeListener implements Listener {
         this.settings = plugin.getSettings();
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onTrade(ShopkeeperTradeEvent event) {
         Player player = event.getPlayer();
         if (player.hasPermission("ownership.bypass")) {
@@ -44,7 +45,7 @@ public class ShopKeeperTradeListener implements Listener {
             if (owner2 != null && !owner2.equals(player.getName())) {
                 event.setCancelled(true);
                 this.messageSender.send(player, Message.CANNOT_TRADE, "%owner%", owner2);
-                playSound(player);
+                playForbiddenTradeSound(player);
                 return;
             }
         }
@@ -52,13 +53,47 @@ public class ShopKeeperTradeListener implements Listener {
         if (owner1 != null && !owner1.equals(player.getName())) {
             event.setCancelled(true);
             this.messageSender.send(player, Message.CANNOT_TRADE, "%owner%", owner1);
-            playSound(player);
+            playForbiddenTradeSound(player);
         }
     }
 
-    private void playSound(Player player) {
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void onSuccessfulTrade(ShopkeeperTradeEvent event) {
+        Player player = event.getPlayer();
+        UnmodifiableItemStack result = event.getResultItem();
+
+        if (result == null) {
+            return;
+        }
+
+        ItemStack resultItem = result.copy();
+
+        if (!this.ownershipManager.isReadyToOwn(resultItem)) {
+            return;
+        }
+
+        if (!player.hasPermission("ownership.autoOwn")) {
+            event.setCancelled(true);
+            this.messageSender.send(player, Message.CANNOT_AUTO_OWN);
+            return;
+        }
+
+        this.ownershipManager.setOwner(resultItem, player.getName());
+        event.setResultItem(UnmodifiableItemStack.of(resultItem));
+
+        this.messageSender.send(player, Message.YOU_NOW_OWN);
+        playNewlyOwnedSound(player);
+    }
+
+    private void playForbiddenTradeSound(Player player) {
         if (this.settings.isForbiddenTradeSoundEnabled()) {
-             SoundUtils.playSound(player, this.settings.getForbiddenTradeSound());
+            SoundUtils.playSound(player, this.settings.getForbiddenTradeSound());
+        }
+    }
+
+    private void playNewlyOwnedSound(Player player) {
+        if (this.settings.isNewlyOwnedSoundEnabled()) {
+            SoundUtils.playSound(player, this.settings.getNewlyOwnedSound());
         }
     }
 }
